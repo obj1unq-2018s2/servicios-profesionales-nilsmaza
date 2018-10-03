@@ -1,0 +1,66 @@
+import profesionales.*
+import universidadess.*
+import empresas.*
+
+
+
+describe "profesionales"{
+
+test "empresa" {
+	
+	const juana = new ProfesionalVinculado()
+	const univJuana = new UnivesidadDeRosario()
+
+	juana.universidad(univJuana)
+	assert.equals("Santa Fe",juana.provinciasDondePuedeTrabajar())
+	
+
+	
+	const melina = new ProfesionalAsociado()
+	const univMelina = new UnivesidadDeCorrientes()
+
+	melina.universidad(univMelina)
+	assert.equals(#{"Entre Ríos", "Corrientes", "Santa Fe"},melina.provinciasDondePuedeTrabajar())
+	
+	
+	
+
+	const rocio = new ProfesionalLibre()
+	const univDeRocio = new UnivesidadDeHurlingham()
+
+	rocio.universidad(univDeRocio)
+	rocio.localidadesDondeTrabajar(["Buenos Aires","Santa Fe","Córdoba"])
+	rocio.cuantoCobra(5000)
+	assert.equals(5000,rocio.honorariosPorHora())
+	assert.equals(["Buenos Aires","Santa Fe","Córdoba"],rocio.provinciasDondePuedeTrabajar())	
+	
+
+
+	const luciana = new ProfesionalLibre()
+	const univDeLucia = new UnivesidadDeHurlingham()
+
+	luciana.universidad(univDeLucia)
+	luciana.localidadesDondeTrabajar([" Santa Fe", "Entre Ríos"])
+	luciana.cuantoCobra(3200)
+	assert.equals(3200,luciana.honorariosPorHora())
+	assert.equals([" Santa Fe", "Entre Ríos"],luciana.provinciasDondePuedeTrabajar())	
+	
+
+
+	
+
+
+	empresa.contratarProfesional(luciana)
+	assert.equals([luciana],empresa.listaDeProfes())
+	empresa.contratarProfesional(rocio)
+	empresa.contratarProfesional(juana)
+	empresa.contratarProfesional(melina)
+	assert.equals([luciana,rocio,juana,melina],empresa.listaDeProfes())
+	
+	assert.equals([rocio],empresa.profesionalesCaros())
+	assert.equals(["UnivesidadDeRosario","UnivesidadDeCorrientes","UnivesidadDeHurlingham"],empresa.univDeLosProfesionales())
+	
+	}
+	
+}
+
